@@ -26,6 +26,18 @@ Route::prefix('user')->group(function () {
     Route::post("/delete/{id}", [\App\Http\Controllers\UserController::class, "delete"]);
 
 });
+Route::prefix('chat')->group(function () {
+
+    Route::post("/create", [\App\Http\Controllers\ChatController::class, "create"]);
+    Route::post("/get", [\App\Http\Controllers\ChatController::class, "get"]);
+
+});
+Route::prefix('message')->group(function () {
+
+    Route::post("/create/{chat_id}", [\App\Http\Controllers\MessageController::class, "create"]);
+    Route::post("/get/{chat_id}", [\App\Http\Controllers\MessageController::class, "get"]);
+
+});
 
 
     Route::post('login',[\App\Http\Controllers\AuthController::class, 'login']);
