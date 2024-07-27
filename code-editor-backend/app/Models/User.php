@@ -44,7 +44,7 @@ class User extends Authenticatable
     ];
     public function code_submission()
     {
-        $this->hasMany(Code_submissin::class);
+        $this->hasMany(Code_submission::class);
     }
     public function chat()
     {
