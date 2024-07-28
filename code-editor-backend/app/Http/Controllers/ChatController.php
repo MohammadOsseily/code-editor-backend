@@ -5,12 +5,12 @@ use \App\Models\Chat;
 use Dotenv\Validator;
 class ChatController extends Controller
 {
-    public function getAllChats(Request $request)
+    public function get(Request $request)
     {
         $chat = Chat::get();
         return response()->json($chat, 201);
     }
-    public function createChat(Request $request)
+    public function create(Request $request)
     {
         $request->validate([
             'user1' => 'required|exists:users,id',

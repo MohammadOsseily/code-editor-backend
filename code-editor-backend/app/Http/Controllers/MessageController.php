@@ -10,7 +10,7 @@ class MessageController extends Controller
         $messages = Message::where('chat_id', $chat_id)->get();
         return response()->json($messages, 200);
     }
-    public function createMessage(Request $request, $chat_id)
+    public function create(Request $request, $chat_id)
     {
         $request->validate([
             'sender_id' => 'required|exists:users,id',
