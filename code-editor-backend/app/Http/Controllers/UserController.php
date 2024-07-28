@@ -52,25 +52,40 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
+
         $user = User::find($id);
 
         if (!$user) {
             return response()->json(['message' => 'User not found'], 404);
         }
 
-        $validatedData = $request->validate([
+
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'role'=>'required|in:user,admin',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8'
-
-
+            'role' => 'required|in:user,admin',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $id,
+            'password' => 'nullable|string|min:8',
         ]);
 
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
 
-        $user->update($validatedData);
 
-        return response()->json($user, 201);
+        $user->name = $request->name;
+        $user->role = $request->role;
+        $user->email = $request->email;
+        if ($request->password) {
+            $user->password = Hash::make($request->password);
+        }
+        $user->save();
+
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'User updated successfully',
+            'user' => $user,
+        ]);
     }
     public function delete($id)
     {
