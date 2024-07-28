@@ -53,3 +53,5 @@ Route::prefix('message')->group(function () {
     Route::post('/register',[\App\Http\Controllers\AuthController::class, 'register']);
     Route::post('/logout',[\App\Http\Controllers\AuthController::class, 'logout']);
     Route::post('/refresh',[\App\Http\Controllers\AuthController::class, 'refresh']);
+
+    Route::post('suggestions',[\App\Http\Controllers\CopilotController::class, 'getSuggestions']);
