@@ -34,3 +34,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('code_submission',[CodeSubmissionController::class, 'readAll']);
 Route::post('code_submission',[CodeSubmissionController::class, 'createCode']);
 Route::get('/code_submission/{id}', [CodeSubmissionController::class, 'UserCode']);
+Route::delete('/code_submission/{id}', [CodeSubmissionController::class, 'DeleteCode']);

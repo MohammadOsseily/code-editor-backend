@@ -29,13 +29,22 @@ class CodeSubmissionController extends Controller
 
     public function UserCode($user_id)
     {
-        $codes = Code_submission::select('users.name','code__submissions.code')
+        $codes = Code_submission::select('code__submissions.id', 'users.name', 'code__submissions.code')
             ->join('users', 'users.id', '=', 'code__submissions.user_id')
             ->where('code__submissions.user_id', $user_id)
             ->get();
     
         return response()->json([
             "codes" => $codes
+        ]);
+    }    
+    
+    public function DeleteCode($id)
+    {
+        $code = Code_submission::find($id);
+        $code->delete();
+        return response()->json([
+            "message" => "Code deleted successfully"
         ]);
     }
 }
