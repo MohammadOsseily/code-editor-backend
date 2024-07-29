@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\CodeSubmissionController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -26,12 +26,21 @@ Route::prefix('user')->group(function () {
     Route::post("/delete/{id}", [\App\Http\Controllers\UserController::class, "delete"]);
 
 });
+Route::prefix('chat')->group(function () {
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    Route::post("/create", [\App\Http\Controllers\ChatController::class, "create"]);
+    Route::post("/get", [\App\Http\Controllers\ChatController::class, "get"]);
+
+});
+Route::prefix('message')->group(function () {
+
+    Route::post("/create/{chat_id}", [\App\Http\Controllers\MessageController::class, "create"]);
+    Route::post("/get/{chat_id}", [\App\Http\Controllers\MessageController::class, "get"]);
+
 });
 
-Route::get('code_submission',[CodeSubmissionController::class, 'readAll']);
-Route::post('code_submission',[CodeSubmissionController::class, 'createCode']);
-Route::get('/code_submission/{id}', [CodeSubmissionController::class, 'UserCode']);
-Route::delete('/code_submission/{id}', [CodeSubmissionController::class, 'DeleteCode']);
+
+    Route::post('login',[\App\Http\Controllers\AuthController::class, 'login']);
+    Route::post('/register',[\App\Http\Controllers\AuthController::class, 'register']);
+    Route::post('/logout',[\App\Http\Controllers\AuthController::class, 'logout']);
+    Route::post('/refresh',[\App\Http\Controllers\AuthController::class, 'refresh']);
