@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CodeSubmissionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -44,3 +45,8 @@ Route::prefix('message')->group(function () {
     Route::post('/register',[\App\Http\Controllers\AuthController::class, 'register']);
     Route::post('/logout',[\App\Http\Controllers\AuthController::class, 'logout']);
     Route::post('/refresh',[\App\Http\Controllers\AuthController::class, 'refresh']);
+
+    Route::get('code_submission',[CodeSubmissionController::class, 'readAll']);
+Route::post('code_submission',[CodeSubmissionController::class, 'createCode']);
+Route::get('/code_submission/{id}', [CodeSubmissionController::class, 'UserCode']);
+Route::delete('/code_submission/{id}', [CodeSubmissionController::class, 'DeleteCode']);
