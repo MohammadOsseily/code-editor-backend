@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChatController;
+use App\Http\Controllers\MessageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -24,20 +26,14 @@ Route::prefix('user')->group(function () {
     Route::post("/getone/{id}", [\App\Http\Controllers\UserController::class, "getOne"]);
     Route::post("/update/{id}", [\App\Http\Controllers\UserController::class, "update"]);
     Route::post("/delete/{id}", [\App\Http\Controllers\UserController::class, "delete"]);
+    Route::get('/search', [UserController::class, 'search']);
 
 });
-Route::prefix('chat')->group(function () {
+Route::get('/chats', [ChatController::class, 'index']);
+Route::post('/chats', [ChatController::class, 'store']);
 
-    Route::post("/create", [\App\Http\Controllers\ChatController::class, "create"]);
-    Route::post("/get", [\App\Http\Controllers\ChatController::class, "get"]);
-
-});
-Route::prefix('message')->group(function () {
-
-    Route::post("/create/{chat_id}", [\App\Http\Controllers\MessageController::class, "create"]);
-    Route::post("/get/{chat_id}", [\App\Http\Controllers\MessageController::class, "get"]);
-
-});
+Route::get('/message/{chat_id}', [MessageController::class, 'index']);
+Route::post('/messages/{chat_id}', [MessageController::class, 'store']);
 
 
     Route::post('login',[\App\Http\Controllers\AuthController::class, 'login']);
