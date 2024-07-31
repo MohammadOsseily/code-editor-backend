@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
     //
+    public function index()
+    {
+        $users = User::all();
+        return response()->json($users, 200);
+    }
     public function create(Request $request)
     {
         $validator = Validator::make($request->all(), [
