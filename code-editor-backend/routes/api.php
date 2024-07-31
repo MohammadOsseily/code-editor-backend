@@ -33,7 +33,6 @@ Route::prefix('user')->group(function () {
 Route::get('/chats', [ChatController::class, 'index']);
 Route::post('/chats', [ChatController::class, 'store']);
 
-});
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -43,10 +42,9 @@ Route::get('code_submission',[CodeSubmissionController::class, 'readAll']);
 Route::post('code_submission',[CodeSubmissionController::class, 'createCode']);
 Route::get('/code_submission/{id}', [CodeSubmissionController::class, 'UserCode']);
 Route::prefix('chat')->group(function () {
-
     Route::post("/create", [\App\Http\Controllers\ChatController::class, "create"]);
     Route::post("/get", [\App\Http\Controllers\ChatController::class, "get"]);
-
+});
 Route::get('/message/{chat_id}', [MessageController::class, 'index']);
 Route::post('/messages/{chat_id}', [MessageController::class, 'store']);
 
