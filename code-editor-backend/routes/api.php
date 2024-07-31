@@ -27,6 +27,14 @@ Route::prefix('user')->group(function () {
     Route::post("/delete/{id}", [\App\Http\Controllers\UserController::class, "delete"]);
 
 });
+
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
+Route::get('code_submission',[CodeSubmissionController::class, 'readAll']);
+Route::post('code_submission',[CodeSubmissionController::class, 'createCode']);
+Route::get('/code_submission/{id}', [CodeSubmissionController::class, 'UserCode']);
 Route::prefix('chat')->group(function () {
 
     Route::post("/create", [\App\Http\Controllers\ChatController::class, "create"]);
