@@ -29,14 +29,20 @@ Route::prefix('user')->group(function () {
     Route::get('/search', [UserController::class, 'search']);
 
 });
-Route::get('/chats', [ChatController::class, 'index']);
-Route::post('/chats', [ChatController::class, 'store']);
+Route::middleware('jwt.verify')->group(function () {
+    Route::get('/users', [UserController::class, 'index']);
+    Route::get('/chats', [ChatController::class, 'index']);
+    Route::post('/chats', [ChatController::class, 'store']);
+    Route::get('/chats/{id}', [ChatController::class, 'show']);
 
-Route::get('/message/{chat_id}', [MessageController::class, 'index']);
-Route::post('/messages/{chat_id}', [MessageController::class, 'store']);
+    Route::get('/messages/{chat_id}', [MessageController::class, 'index']);
+    Route::post('/messages/{chat_id}', [MessageController::class, 'store']);
+
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/refresh', [AuthController::class, 'refresh']);
+});
 
 
     Route::post('login',[\App\Http\Controllers\AuthController::class, 'login']);
     Route::post('/register',[\App\Http\Controllers\AuthController::class, 'register']);
-    Route::post('/logout',[\App\Http\Controllers\AuthController::class, 'logout']);
-    Route::post('/refresh',[\App\Http\Controllers\AuthController::class, 'refresh']);
+

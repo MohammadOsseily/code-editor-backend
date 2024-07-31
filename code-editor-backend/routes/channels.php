@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Broadcast;
+use App\Models\Chat;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +15,7 @@ use Illuminate\Support\Facades\Broadcast;
 */
 
 Broadcast::channel('chat.{chatId}', function ($user, $chatId) {
-    return true; // Adjust this to match your authorization logic
+    $chat = Chat::find($chatId);
+
+    return $chat && ($chat->user1 == $user->id || $chat->user2 == $user->id);
 });
