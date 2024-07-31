@@ -58,3 +58,7 @@ Route::prefix('message')->group(function () {
 Route::post('code_submission',[CodeSubmissionController::class, 'createCode']);
 Route::get('/code_submission/{id}', [CodeSubmissionController::class, 'UserCode']);
 Route::delete('/code_submission/{id}', [CodeSubmissionController::class, 'DeleteCode']);
+
+Route::post('suggestions',[\App\Http\Controllers\CopilotController::class, 'getSuggestions']);
+
+Route::post('/import-users', [UserController::class, 'importUsers']);
