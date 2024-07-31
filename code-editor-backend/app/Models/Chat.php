@@ -13,9 +13,14 @@ class Chat extends Model
         $this->hasMany(Message::class);
     }
 
-    public function user()
+    public function user1()
     {
-        $this->hasMany(User::class);
+        return $this->belongsTo(User::class, 'user1');
+    }
+
+    public function user2()
+    {
+        return $this->belongsTo(User::class, 'user2');
     }
 
 }
