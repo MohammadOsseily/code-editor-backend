@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Code_submission;
+use App\Models\Code_Submission;
 use Illuminate\Http\Request;
 
 class CodeSubmissionController extends Controller
@@ -33,12 +33,12 @@ class CodeSubmissionController extends Controller
             ->join('users', 'users.id', '=', 'code__submissions.user_id')
             ->where('code__submissions.user_id', $user_id)
             ->get();
-    
+
         return response()->json([
             "codes" => $codes
         ]);
-    }    
-    
+    }
+
     public function DeleteCode($id)
     {
         $code = Code_submission::find($id);

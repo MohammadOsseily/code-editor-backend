@@ -11,7 +11,7 @@ class CopilotController extends Controller
         $apiKey = config('services.openai.api_key');
         $code = $request->input('code');
         $language = $request->input('language');
-    
+
         try {
             $response = Http::withHeaders([
                 'Authorization' => "Bearer $apiKey",
@@ -30,7 +30,7 @@ class CopilotController extends Controller
                 'frequency_penalty' => 0,
                 'presence_penalty' => 0,
             ]);
-            
+
             $suggestions = $response->json()['choices'][0]['message']['content'] ?? '';
             return response()->json([
                 'suggestions' => explode("\n", trim($suggestions)),

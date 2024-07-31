@@ -37,37 +37,23 @@ Route::middleware('jwt.verify')->group(function () {
     Route::get('/chats/{id}', [ChatController::class, 'show']);
 
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-Route::get('code_submission',[CodeSubmissionController::class, 'readAll']);
-Route::post('code_submission',[CodeSubmissionController::class, 'createCode']);
-Route::get('/code_submission/{id}', [CodeSubmissionController::class, 'UserCode']);
-Route::prefix('chat')->group(function () {
-    Route::post("/create", [\App\Http\Controllers\ChatController::class, "create"]);
-    Route::post("/get", [\App\Http\Controllers\ChatController::class, "get"]);
-});
-Route::get('/message/{chat_id}', [MessageController::class, 'index']);
-Route::post('/messages/{chat_id}', [MessageController::class, 'store']);
-    Route::get('/messages/{chat_id}', [MessageController::class, 'index']);
+    Route::get('/message/{chat_id}', [MessageController::class, 'index']);
     Route::post('/messages/{chat_id}', [MessageController::class, 'store']);
-
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
 });
 
 
-    Route::post('login',[\App\Http\Controllers\AuthController::class, 'login']);
+Route::post('login',[\App\Http\Controllers\AuthController::class, 'login']);
     Route::post('/register',[\App\Http\Controllers\AuthController::class, 'register']);
     Route::post('/logout',[\App\Http\Controllers\AuthController::class, 'logout']);
     Route::post('/refresh',[\App\Http\Controllers\AuthController::class, 'refresh']);
 
     Route::get('code_submission',[CodeSubmissionController::class, 'readAll']);
-Route::post('code_submission',[CodeSubmissionController::class, 'createCode']);
-Route::get('/code_submission/{id}', [CodeSubmissionController::class, 'UserCode']);
-Route::delete('/code_submission/{id}', [CodeSubmissionController::class, 'DeleteCode']);
+    Route::post('code_submission',[CodeSubmissionController::class, 'createCode']);
+    Route::get('/code_submission/{id}', [CodeSubmissionController::class, 'UserCode']);
+    Route::delete('/code_submission/{id}', [CodeSubmissionController::class, 'DeleteCode']);
 
-Route::post('suggestions',[\App\Http\Controllers\CopilotController::class, 'getSuggestions']);
+Route::post('/suggestions',[\App\Http\Controllers\CopilotController::class, 'getSuggestions']);
 
 Route::post('/import-users', [UserController::class, 'importUsers']);

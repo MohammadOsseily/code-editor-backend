@@ -15,7 +15,7 @@ return new class extends Migration
             Schema::create('code__submissions', function (Blueprint $table) {
                 $table->id();
                 $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onDelete('cascade');
-                $table->string('name');
+
                 $table->text('code');
                 $table->timestamps();
             });
